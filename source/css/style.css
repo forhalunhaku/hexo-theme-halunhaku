@@ -81,6 +81,54 @@
   @apply bg-[var(--secondary-color)] font-semibold;
 }
 
+/* Additional markdown elements */
+.prose strong, .prose b {
+  @apply font-bold text-[var(--text-primary-color)];
+}
+
+.prose em, .prose i {
+  @apply italic;
+}
+
+.prose del, .prose s {
+  @apply line-through opacity-75;
+}
+
+.prose hr {
+  @apply border-t border-[var(--border-color)] my-8;
+}
+
+.prose mark {
+  @apply bg-yellow-200 px-1 rounded;
+}
+
+/* Code syntax highlighting support */
+.prose pre[class*="language-"] {
+  @apply bg-[var(--secondary-color)] text-[var(--text-primary-color)];
+}
+
+.prose code[class*="language-"] {
+  @apply bg-transparent;
+}
+
+/* Task lists */
+.prose .task-list-item {
+  @apply list-none;
+}
+
+.prose .task-list-item input[type="checkbox"] {
+  @apply mr-2;
+}
+
+/* Footnotes */
+.prose .footnote-ref {
+  @apply text-[var(--primary-color)] no-underline;
+}
+
+.prose .footnotes {
+  @apply border-t border-[var(--border-color)] mt-8 pt-4 text-sm;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .prose {
