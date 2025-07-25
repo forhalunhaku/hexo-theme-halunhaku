@@ -4,9 +4,17 @@
       <!-- Logo and Title -->
       <div class="flex items-center gap-3">
         <% if (theme.site_logo) { %>
-        <svg class="h-8 w-8 text-[var(--primary-color)]" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-          <path clip-rule="evenodd" d="M24 4H6V17.3333V30.6667H24V44H42V30.6667V17.3333H24V4Z" fill="currentColor" fill-rule="evenodd"></path>
-        </svg>
+          <% if (theme.logo_path) { %>
+            <!-- 自定义Logo -->
+            <img src="<%= theme.logo_path %>" 
+                 alt="<%= theme.site_title %>" 
+                 class="h-8 w-8 object-contain">
+          <% } else { %>
+            <!-- 默认SVG Logo -->
+            <svg class="h-8 w-8 text-[var(--primary-color)]" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+              <path clip-rule="evenodd" d="M24 4H6V17.3333V30.6667H24V44H42V30.6667V17.3333H24V4Z" fill="currentColor" fill-rule="evenodd"></path>
+            </svg>
+          <% } %>
         <% } %>
         <h1 class="text-3xl font-bold tracking-tight"><%= theme.site_title || config.title %></h1>
       </div>
