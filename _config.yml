@@ -1,0 +1,66 @@
+# Hexo Theme Halunhaku Configuration
+
+# Site settings
+site_title: "Halunhaku"
+site_subtitle: "Modern design meets elegant simplicity"
+site_logo: true
+
+# Theme settings
+theme_style: "light" # light, dark, auto
+
+# Navigation
+menu:
+  Home: /
+  Categories: /categories/
+  Tags: /tags/
+
+# Layout settings
+posts_per_page: 6
+excerpt_length: 150
+
+# Social links (optional)
+social:
+  github: https://github.com/forhalunhaku
+  # twitter: https://twitter.com/forhalunhaku
+  # linkedin: https://linkedin.com/in/forhalunhaku
+  email: mailto:1202201058@student.stdu.edu.cn
+
+# Color schemes for different pages
+color_schemes:
+  home:
+    primary: "#0c7ff2"
+    secondary: "#f3f4f6"
+    background: "#ffffff"
+    text_primary: "#111827"
+    text_secondary: "#6b7280"
+    border: "#e5e7eb"
+  
+  category:
+    primary: "#A78BFA"
+    secondary: "#374151"
+    background: "#111827"
+    text_primary: "#F9FAFB"
+    text_secondary: "#9CA3AF"
+    accent: "#1F2937"
+  
+  tag:
+    primary: "#6366f1"
+    secondary: "#313338"
+    background: "#1e1f22"
+    text_primary: "#f2f3f5"
+    text_secondary: "#949ba4"
+
+# Featured categories for sidebar
+featured_categories:
+  - Travel
+  - Lifestyle
+  - Food
+  - Culture
+
+# Popular tags for tag cloud
+popular_tags:
+  - Travel
+  - Minimalism
+  - Lifestyle
+  - Adventure
+  - Photography

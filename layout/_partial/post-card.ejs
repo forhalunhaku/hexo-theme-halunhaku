@@ -1,0 +1,57 @@
+<!-- Reusable post card component -->
+<article class="group">
+  <div class="overflow-hidden rounded-lg mb-5">
+    <% if (post.cover || post.thumbnail) { %>
+      <div class="w-full h-0 pb-[66.66%] bg-center bg-no-repeat bg-cover rounded-lg group-hover:scale-105 transition-transform duration-500 ease-in-out" 
+           style="background-image: url('<%= post.cover || post.thumbnail %>')"></div>
+    <% } else { %>
+      <div class="w-full h-0 pb-[66.66%] bg-gradient-to-br from-[var(--primary-color)] to-[var(--secondary-color)] rounded-lg group-hover:scale-105 transition-transform duration-500 ease-in-out flex items-center justify-center">
+        <svg class="w-12 h-12 text-white opacity-50" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"></path>
+        </svg>
+      </div>
+    <% } %>
+  </div>
+  
+  <div class="mb-3">
+    <% if (post.categories && post.categories.length) { %>
+      <div class="flex gap-2 mb-2">
+        <% post.categories.each(function(cat) { %>
+          <a href="<%= url_for(cat.path) %>" 
+             class="text-xs px-2 py-1 bg-[var(--primary-color)] text-white rounded-full hover:bg-opacity-80 transition-colors">
+            <%= cat.name %>
+          </a>
+        <% }); %>
+      </div>
+    <% } %>
+    
+    <h2 class="text-2xl font-bold leading-snug tracking-tight mb-2">
+      <a class="hover:text-[var(--primary-color)] transition-colors" href="<%= url_for(post.path) %>">
+        <%= post.title %>
+      </a>
+    </h2>
+    
+    <div class="flex items-center gap-4 text-sm text-[var(--text-secondary-color)] mb-3">
+      <time datetime="<%= post.date.toISOString() %>">
+        <%= moment(post.date).format('MMM DD, YYYY') %>
+      </time>
+      <span>•</span>
+      <span><%= reading_time(post.content) %></span>
+    </div>
+  </div>
+  
+  <p class="text-[var(--text-secondary-color)] text-lg leading-relaxed">
+    <%= get_excerpt(post, theme.excerpt_length) %>
+  </p>
+  
+  <% if (post.tags && post.tags.length) { %>
+    <div class="flex flex-wrap gap-2 mt-4">
+      <% post.tags.limit(3).each(function(tag) { %>
+        <a href="<%= url_for(tag.path) %>" 
+           class="text-xs text-[var(--text-secondary-color)] hover:text-[var(--primary-color)] transition-colors">
+          #<%= tag.name %>
+        </a>
+      <% }); %>
+    </div>
+  <% } %>
+</article>

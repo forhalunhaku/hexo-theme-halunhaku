@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="<%= config.language || 'en' %>">
+<%- partial('_partial/head') %>
+<body class="bg-[var(--background-color)] text-[var(--text-primary-color)]">
+  <div class="min-h-screen flex flex-col">
+    <%- partial('_partial/header') %>
+    
+    <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="max-w-4xl mx-auto">
+        <header class="mb-12">
+          <h1 class="text-4xl md:text-5xl font-bold leading-tight">
+            <%= page.title %>
+          </h1>
+          <% if (page.date) { %>
+            <time class="text-[var(--text-secondary-color)] text-sm" datetime="<%= page.date.toISOString() %>">
+              <%= moment(page.date).format('MMMM DD, YYYY') %>
+            </time>
+          <% } %>
+        </header>
+        
+        <div class="prose prose-lg max-w-none">
+          <%- page.content %>
+        </div>
+      </div>
+    </main>
+    
+    <%- partial('_partial/footer') %>
+  </div>
+</body>
+</html>

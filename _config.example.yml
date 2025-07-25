@@ -1,0 +1,93 @@
+# Hexo Theme Halunhaku Example Configuration
+# Copy this to your site root as _config.halunhaku.yml and customize
+
+# Site settings
+site_title: "Halunhaku"
+site_subtitle: "Modern design meets elegant simplicity"
+site_logo: true
+
+# Theme settings
+theme_style: "auto" # light, dark, auto
+
+# Navigation menu
+menu:
+  Home: /
+  Categories: /categories/
+  Tags: /tags/
+  About: /about/
+
+# Layout settings
+posts_per_page: 6
+excerpt_length: 150
+
+# Social links (optional)
+social:
+  github: https://github.com/forhalunhaku
+  twitter: https://twitter.com/forhalunhaku
+  linkedin: https://linkedin.com/in/forhalunhaku
+  email: mailto:1202201058@student.stdu.edu.cn
+
+# SEO settings
+favicon: /favicon.ico
+keywords: "blog, technology, design, web development"
+
+# Color schemes for different page types
+color_schemes:
+  home:
+    primary: "#0c7ff2"
+    secondary: "#f3f4f6"
+    background: "#ffffff"
+    text_primary: "#111827"
+    text_secondary: "#6b7280"
+    border: "#e5e7eb"
+  
+  category:
+    primary: "#A78BFA"
+    secondary: "#374151"
+    background: "#111827"
+    text_primary: "#F9FAFB"
+    text_secondary: "#9CA3AF"
+    accent: "#1F2937"
+  
+  tag:
+    primary: "#6366f1"
+    secondary: "#313338"
+    background: "#1e1f22"
+    text_primary: "#f2f3f5"
+    text_secondary: "#949ba4"
+
+# Featured content
+featured_categories:
+  - Technology
+  - Design
+  - Travel
+  - Lifestyle
+
+popular_tags:
+  - javascript
+  - css
+  - design
+  - tutorial
+  - tips
+
+# Comments (optional)
+comments:
+  enable: false
+  provider: disqus # disqus, gitalk, valine
+  disqus_shortname: your-disqus-shortname
+
+# Analytics (optional)
+analytics:
+  google: # Your Google Analytics tracking ID
+  baidu: # Your Baidu Analytics tracking ID
+
+# Search
+search:
+  enable: true
+  placeholder: "Search posts..."
+
+# Footer settings
+footer:
+  copyright: "All rights reserved"
+  powered_by: true
+  theme_info: true

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="<%= config.language || 'en' %>">
+<%- partial('_partial/head') %>
+<body class="bg-[var(--background-color)] text-[var(--text-primary-color)]">
+  <div class="relative flex size-full min-h-screen flex-col overflow-x-hidden">
+    <div class="layout-container flex h-full grow flex-col">
+      <%- partial('_partial/header') %>
+      
+      <main class="container mx-auto flex-1 px-6 py-12">
+        <div class="grid grid-cols-1 gap-16 lg:grid-cols-3">
+          <div class="lg:col-span-2">
+            <div class="mb-12 border-b border-[var(--secondary-color)] pb-6">
+              <h2 class="text-5xl font-extrabold tracking-tighter text-[var(--text-primary-color)]">
+                <%= page.category || 'Category' %>
+              </h2>
+              <p class="mt-2 text-lg text-[var(--text-secondary-color)]">
+                Exploring <%= page.category || 'this topic' %>, one post at a time.
+              </p>
+            </div>
+            
+            <div class="grid grid-cols-1 gap-12 sm:grid-cols-2">
+              <% page.posts.each(function(post) { %>
+                <div class="card-hover group flex flex-col gap-4">
+                  <a href="<%= url_for(post.path) %>">
+                    <div class="aspect-h-3 aspect-w-4 w-full overflow-hidden rounded-md bg-[var(--accent-color)]">
+                      <% if (post.cover || post.thumbnail) { %>
+                        <img alt="<%= post.title %>" 
+                             class="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105" 
+                             src="<%= post.cover || post.thumbnail %>">
+                      <% } else { %>
+                        <div class="h-full w-full bg-gradient-to-br from-[var(--primary-color)] to-[var(--secondary-color)] transition-transform duration-300 group-hover:scale-105"></div>
+                      <% } %>
+                    </div>
+                    <h3 class="mt-4 text-xl font-bold leading-snug text-[var(--text-primary-color)] group-hover:text-[var(--primary-color)] transition-colors">
+                      <%= post.title %>
+                    </h3>
+                  </a>
+                  <p class="text-[var(--text-secondary-color)]">
+                    <%= strip_html(post.excerpt || post.content).substring(0, theme.excerpt_length || 150) %>...
+                  </p>
+                </div>
+              <% }); %>
+            </div>
+          </div>
+          
+          <!-- Sidebar -->
+          <aside class="space-y-12">
+            <!-- Popular Posts -->
+            <div>
+              <h3 class="mb-6 border-b border-[var(--secondary-color)] pb-4 text-2xl font-bold tracking-tight">
+                Popular Posts
+              </h3>
+              <div class="space-y-6">
+                <% site.posts.sort('date', -1).limit(3).each(function(post) { %>
+                  <a class="group flex items-start gap-4" href="<%= url_for(post.path) %>">
+                    <% if (post.cover || post.thumbnail) { %>
+                      <img alt="<%= post.title %>" 
+                           class="h-20 w-20 flex-shrink-0 rounded-md object-cover" 
+                           src="<%= post.cover || post.thumbnail %>">
+                    <% } else { %>
+                      <div class="h-20 w-20 flex-shrink-0 rounded-md bg-gradient-to-br from-[var(--primary-color)] to-[var(--secondary-color)]"></div>
+                    <% } %>
+                    <div>
+                      <h4 class="font-semibold leading-snug text-[var(--text-primary-color)] group-hover:text-[var(--primary-color)] transition-colors">
+                        <%= post.title %>
+                      </h4>
+                      <p class="mt-1 text-sm text-[var(--text-secondary-color)]">
+                        <%= moment(post.date).format('MMM DD, YYYY') %>
+                      </p>
+                    </div>
+                  </a>
+                <% }); %>
+              </div>
+            </div>
+            
+            <!-- Categories -->
+            <div>
+              <h3 class="mb-6 border-b border-[var(--secondary-color)] pb-4 text-2xl font-bold tracking-tight">
+                Categories
+              </h3>
+              <ul class="space-y-3">
+                <% site.categories.each(function(cat) { %>
+                  <li>
+                    <a class="nav-link block rounded-md px-4 py-3 <%= page.category === cat.name ? 'bg-[var(--accent-color)] font-semibold text-[var(--primary-color)]' : 'hover:bg-[var(--accent-color)]' %> text-[var(--text-secondary-color)] hover:text-[var(--text-primary-color)] transition-colors" 
+                       href="<%= url_for(cat.path) %>">
+                      <%= cat.name %> (<%= cat.posts.length %>)
+                    </a>
+                  </li>
+                <% }); %>
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

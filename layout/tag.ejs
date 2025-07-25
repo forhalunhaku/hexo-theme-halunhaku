@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="<%= config.language || 'en' %>">
+<%- partial('_partial/head') %>
+<body class="bg-[var(--background-color)]">
+  <div class="relative flex size-full min-h-screen flex-col group/design-root overflow-x-hidden">
+    <div class="layout-container flex h-full grow flex-col">
+      <%- partial('_partial/header') %>
+      
+      <main class="flex-1 px-6 py-8">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12">
+          <div class="lg:col-span-2">
+            <h1 class="text-4xl font-bold text-[var(--text-primary-color)] tracking-tight mb-8">
+              Tag: <span class="text-[var(--primary-color)]"><%= page.tag || 'Tag' %></span>
+            </h1>
+            
+            <div class="space-y-8">
+              <% page.posts.each(function(post) { %>
+                <article class="flex items-start gap-6 group">
+                  <a class="block w-48 h-32 rounded-md overflow-hidden" href="<%= url_for(post.path) %>">
+                    <% if (post.cover || post.thumbnail) { %>
+                      <div class="w-full h-full bg-center bg-cover transform group-hover:scale-105 transition-transform duration-300" 
+                           style="background-image: url('<%= post.cover || post.thumbnail %>')"></div>
+                    <% } else { %>
+                      <div class="w-full h-full bg-gradient-to-br from-[var(--primary-color)] to-[var(--secondary-color)] transform group-hover:scale-105 transition-transform duration-300"></div>
+                    <% } %>
+                  </a>
+                  <div class="flex-1">
+                    <h2 class="text-2xl font-bold text-[var(--text-primary-color)] group-hover:text-[var(--primary-color)] transition-colors">
+                      <a href="<%= url_for(post.path) %>"><%= post.title %></a>
+                    </h2>
+                    <p class="text-[var(--text-secondary-color)] mt-2 text-base">
+                      <%= strip_html(post.excerpt || post.content).substring(0, theme.excerpt_length || 150) %>...
+                    </p>
+                  </div>
+                </article>
+              <% }); %>
+            </div>
+          </div>
+          
+          <!-- Sidebar -->
+          <aside class="lg:col-span-1 space-y-8 sticky top-8 self-start">
+            <!-- Tag Cloud -->
+            <div>
+              <h3 class="text-xl font-bold text-[var(--text-primary-color)] mb-4">Tag Cloud</h3>
+              <div class="flex flex-wrap gap-2">
+                <% site.tags.each(function(tag) { %>
+                  <a class="px-3 py-1 text-sm font-medium rounded-full transition-colors <%= page.tag === tag.name ? 'bg-[var(--primary-color)] text-white' : 'bg-[var(--secondary-color)] text-[var(--text-primary-color)] hover:bg-opacity-80' %>" 
+                     href="<%= url_for(tag.path) %>">
+                    <%= tag.name %>
+                  </a>
+                <% }); %>
+              </div>
+            </div>
+            
+            <!-- Recent Posts -->
+            <div>
+              <h3 class="text-xl font-bold text-[var(--text-primary-color)] mb-4">Recent Posts</h3>
+              <div class="space-y-4">
+                <% site.posts.sort('date', -1).limit(3).each(function(post) { %>
+                  <div class="flex items-center gap-4 group">
+                    <a class="block w-20 h-20 rounded-md overflow-hidden" href="<%= url_for(post.path) %>">
+                      <% if (post.cover || post.thumbnail) { %>
+                        <div class="w-full h-full bg-center bg-cover transform group-hover:scale-105 transition-transform duration-300" 
+                             style="background-image: url('<%= post.cover || post.thumbnail %>')"></div>
+                      <% } else { %>
+                        <div class="w-full h-full bg-gradient-to-br from-[var(--primary-color)] to-[var(--secondary-color)] transform group-hover:scale-105 transition-transform duration-300"></div>
+                      <% } %>
+                    </a>
+                    <div>
+                      <h4 class="text-base font-medium text-[var(--text-primary-color)] group-hover:text-[var(--primary-color)] transition-colors">
+                        <a href="<%= url_for(post.path) %>"><%= post.title %></a>
+                      </h4>
+                      <p class="text-sm text-[var(--text-secondary-color)]">
+                        <%= moment(post.date).format('MMM DD, YYYY') %>
+                      </p>
+                    </div>
+                  </div>
+                <% }); %>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

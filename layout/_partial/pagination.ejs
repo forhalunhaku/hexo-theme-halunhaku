@@ -1,0 +1,91 @@
+<!-- Pagination component -->
+<% if (page.total > 1) { %>
+  <nav aria-label="Pagination" class="flex items-center justify-center space-x-2 mt-20">
+    <!-- Previous button -->
+    <% if (page.prev) { %>
+      <a class="p-3 text-[var(--text-secondary-color)] hover:text-[var(--text-primary-color)] rounded-full hover:bg-[var(--secondary-color)] transition-colors" 
+         href="<%= url_for(page.prev_link) %>" 
+         aria-label="Previous page">
+        <svg fill="currentColor" height="20" viewBox="0 0 256 256" width="20" xmlns="http://www.w3.org/2000/svg">
+          <path d="M165.66,202.34a8,8,0,0,1-11.32,11.32l-80-80a8,8,0,0,1,0-11.32l80-80a8,8,0,0,1,11.32,11.32L91.31,128Z"></path>
+        </svg>
+      </a>
+    <% } else { %>
+      <span class="p-3 text-[var(--text-secondary-color)] opacity-50 rounded-full">
+        <svg fill="currentColor" height="20" viewBox="0 0 256 256" width="20" xmlns="http://www.w3.org/2000/svg">
+          <path d="M165.66,202.34a8,8,0,0,1-11.32,11.32l-80-80a8,8,0,0,1,0-11.32l80-80a8,8,0,0,1,11.32,11.32L91.31,128Z"></path>
+        </svg>
+      </span>
+    <% } %>
+    
+    <!-- Page numbers -->
+    <% 
+    const current = page.current;
+    const total = page.total;
+    const baseUrl = page.base || '';
+    
+    // Calculate page range to show
+    let startPage = Math.max(1, current - 2);
+    let endPage = Math.min(total, current + 2);
+    
+    // Adjust range if we're near the beginning or end
+    if (current <= 3) {
+      endPage = Math.min(5, total);
+    }
+    if (current >= total - 2) {
+      startPage = Math.max(1, total - 4);
+    }
+    %>
+    
+    <!-- First page if not in range -->
+    <% if (startPage > 1) { %>
+      <a class="w-10 h-10 flex items-center justify-center text-base font-medium text-[var(--text-secondary-color)] hover:text-[var(--text-primary-color)] rounded-full hover:bg-[var(--secondary-color)] transition-colors" 
+         href="<%= url_for(baseUrl) %>">1</a>
+      <% if (startPage > 2) { %>
+        <span class="text-base font-medium text-[var(--text-secondary-color)]">...</span>
+      <% } %>
+    <% } %>
+    
+    <!-- Page range -->
+    <% for (let i = startPage; i <= endPage; i++) { %>
+      <% if (i === current) { %>
+        <span class="w-10 h-10 flex items-center justify-center text-base font-bold rounded-full bg-[var(--primary-color)] text-white">
+          <%= i %>
+        </span>
+      <% } else { %>
+        <a class="w-10 h-10 flex items-center justify-center text-base font-medium text-[var(--text-secondary-color)] hover:text-[var(--text-primary-color)] rounded-full hover:bg-[var(--secondary-color)] transition-colors" 
+           href="<%= url_for(baseUrl + (i === 1 ? '' : i + '/')) %>">
+          <%= i %>
+        </a>
+      <% } %>
+    <% } %>
+    
+    <!-- Last page if not in range -->
+    <% if (endPage < total) { %>
+      <% if (endPage < total - 1) { %>
+        <span class="text-base font-medium text-[var(--text-secondary-color)]">...</span>
+      <% } %>
+      <a class="w-10 h-10 flex items-center justify-center text-base font-medium text-[var(--text-secondary-color)] hover:text-[var(--text-primary-color)] rounded-full hover:bg-[var(--secondary-color)] transition-colors" 
+         href="<%= url_for(baseUrl + total + '/') %>">
+        <%= total %>
+      </a>
+    <% } %>
+    
+    <!-- Next button -->
+    <% if (page.next) { %>
+      <a class="p-3 text-[var(--text-secondary-color)] hover:text-[var(--text-primary-color)] rounded-full hover:bg-[var(--secondary-color)] transition-colors" 
+         href="<%= url_for(page.next_link) %>" 
+         aria-label="Next page">
+        <svg fill="currentColor" height="20" viewBox="0 0 256 256" width="20" xmlns="http://www.w3.org/2000/svg">
+          <path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"></path>
+        </svg>
+      </a>
+    <% } else { %>
+      <span class="p-3 text-[var(--text-secondary-color)] opacity-50 rounded-full">
+        <svg fill="currentColor" height="20" viewBox="0 0 256 256" width="20" xmlns="http://www.w3.org/2000/svg">
+          <path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"></path>
+        </svg>
+      </span>
+    <% } %>
+  </nav>
+<% } %>

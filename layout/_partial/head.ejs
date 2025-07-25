@@ -1,0 +1,28 @@
+<head>
+  <%- partial('_partial/meta') %>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  
+  <!-- Theme Colors -->
+  <style type="text/tailwindcss">
+    :root {
+      <% 
+      const scheme = theme.color_schemes[page.layout] || theme.color_schemes.home;
+      for (const [key, value] of Object.entries(scheme)) { 
+      %>
+      --<%= key.replace('_', '-') %>-color: <%= value %>;
+      <% } %>
+    }
+    body {
+      font-family: 'Newsreader', serif;
+      background-color: var(--background-color);
+      color: var(--text-primary-color);
+    }
+  </style>
+</head>

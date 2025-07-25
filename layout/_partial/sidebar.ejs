@@ -1,0 +1,62 @@
+<!-- Sidebar component for reuse across different layouts -->
+<aside class="space-y-12">
+  <!-- Popular Posts -->
+  <div>
+    <h3 class="mb-6 border-b border-[var(--secondary-color)] pb-4 text-2xl font-bold tracking-tight">
+      Popular Posts
+    </h3>
+    <div class="space-y-6">
+      <% site.posts.sort('date', -1).limit(5).each(function(post) { %>
+        <a class="group flex items-start gap-4" href="<%= url_for(post.path) %>">
+          <% if (post.cover || post.thumbnail) { %>
+            <img alt="<%= post.title %>" 
+                 class="h-20 w-20 flex-shrink-0 rounded-md object-cover" 
+                 src="<%= post.cover || post.thumbnail %>">
+          <% } else { %>
+            <div class="h-20 w-20 flex-shrink-0 rounded-md bg-gradient-to-br from-[var(--primary-color)] to-[var(--secondary-color)]"></div>
+          <% } %>
+          <div>
+            <h4 class="font-semibold leading-snug text-[var(--text-primary-color)] group-hover:text-[var(--primary-color)] transition-colors">
+              <%= post.title %>
+            </h4>
+            <p class="mt-1 text-sm text-[var(--text-secondary-color)]">
+              <%= moment(post.date).format('MMM DD, YYYY') %>
+            </p>
+          </div>
+        </a>
+      <% }); %>
+    </div>
+  </div>
+  
+  <!-- Categories -->
+  <div>
+    <h3 class="mb-6 border-b border-[var(--secondary-color)] pb-4 text-2xl font-bold tracking-tight">
+      Categories
+    </h3>
+    <ul class="space-y-3">
+      <% site.categories.sort('name').each(function(cat) { %>
+        <li>
+          <a class="nav-link block rounded-md px-4 py-3 <%= (page.category === cat.name) ? 'bg-[var(--accent-color)] font-semibold text-[var(--primary-color)]' : 'hover:bg-[var(--accent-color)]' %> text-[var(--text-secondary-color)] hover:text-[var(--text-primary-color)] transition-colors" 
+             href="<%= url_for(cat.path) %>">
+            <%= cat.name %> (<%= cat.posts.length %>)
+          </a>
+        </li>
+      <% }); %>
+    </ul>
+  </div>
+  
+  <!-- Tags -->
+  <div>
+    <h3 class="mb-6 border-b border-[var(--secondary-color)] pb-4 text-2xl font-bold tracking-tight">
+      Popular Tags
+    </h3>
+    <div class="flex flex-wrap gap-2">
+      <% site.tags.sort('posts.length', -1).limit(10).each(function(tag) { %>
+        <a class="px-3 py-1 text-sm font-medium rounded-full transition-colors <%= (page.tag === tag.name) ? 'bg-[var(--primary-color)] text-white' : 'bg-[var(--secondary-color)] text-[var(--text-primary-color)] hover:bg-opacity-80' %>" 
+           href="<%= url_for(tag.path) %>">
+          <%= tag.name %>
+        </a>
+      <% }); %>
+    </div>
+  </div>
+</aside>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="<%= config.language || 'en' %>">
+<%- partial('_partial/head') %>
+<body class="bg-[var(--background-color)] text-[var(--text-primary-color)]">
+  <div class="min-h-screen flex flex-col">
+    <%- partial('_partial/header') %>
+    
+    <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="max-w-4xl mx-auto">
+        <header class="mb-12">
+          <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-6">
+            All Categories
+          </h1>
+          <p class="text-[var(--text-secondary-color)] text-lg">
+            Browse posts by category
+          </p>
+        </header>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <% (page.categories || site.categories).sort('name').each(function(category) { %>
+            <div class="group">
+              <a href="<%= url_for(category.path) %>" 
+                 class="block p-6 bg-[var(--secondary-color)] rounded-lg hover:bg-[var(--primary-color)] transition-colors duration-300">
+                <h2 class="text-xl font-bold mb-2 group-hover:text-white">
+                  <%= category.name %>
+                </h2>
+                <p class="text-[var(--text-secondary-color)] group-hover:text-white/80">
+                  <%= category.posts.length %> <%= category.posts.length === 1 ? 'post' : 'posts' %>
+                </p>
+                
+                <!-- Show latest posts in this category -->
+                <% if (category.posts.length > 0) { %>
+                  <div class="mt-4 space-y-2">
+                    <% category.posts.sort('-date').limit(3).each(function(post) { %>
+                      <div class="text-sm text-[var(--text-secondary-color)] group-hover:text-white/70 truncate">
+                        <%= post.title %>
+                      </div>
+                    <% }); %>
+                  </div>
+                <% } %>
+              </a>
+            </div>
+          <% }); %>
+        </div>
+        
+        <% if (site.categories.length === 0) { %>
+          <div class="text-center py-12">
+            <p class="text-[var(--text-secondary-color)] text-lg">
+              No categories found. Start writing posts with categories!
+            </p>
+          </div>
+        <% } %>
+      </div>
+    </main>
+    
+    <%- partial('_partial/footer') %>
+  </div>
+</body>
+</html>
