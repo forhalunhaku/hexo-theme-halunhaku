@@ -7,13 +7,12 @@
 
 A modern, responsive Hexo theme with multiple layout styles inspired by contemporary design patterns.
 
-![Theme Preview](https://via.placeholder.com/800x400/0c7ff2/ffffff?text=Hexo+Theme+Halunhaku+Preview)
+![Theme Preview](https://pic1.imgdb.cn/item/68843ed558cb8da5c8e046e7.png)
 
 ## 🎨 Demo
 
-- [Live Demo](https://your-demo-site.com) (Replace with your demo URL)
-- [Documentation](https://your-docs-site.com) (Replace with your docs URL)
-
+- [Live Demo](https://blog.halunhaku.top) 
+- [Documentation](https://blog.halunhaku.top/2025/07/26/hexo-theme-halunhaku-guide/) 
 ## Features
 
 - 🎨 **Multiple Layout Styles**: Different color schemes for home, category, and tag pages
