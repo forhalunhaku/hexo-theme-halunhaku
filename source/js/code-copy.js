@@ -23,12 +23,7 @@
       // Create copy button with improved styling
       const copyBtn = document.createElement('button');
       copyBtn.className = 'copy-btn';
-      copyBtn.innerHTML = `
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-        </svg>
-      `;
+      copyBtn.innerHTML = 'Copy';
       copyBtn.title = 'Copy code';
       copyBtn.setAttribute('aria-label', 'Copy code to clipboard');
 
@@ -88,39 +83,33 @@
 
   function showCopySuccess(btn) {
     const originalContent = btn.innerHTML;
-    btn.innerHTML = `
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <polyline points="20,6 9,17 4,12"></polyline>
-      </svg>
-    `;
+    btn.innerHTML = '✓ Copied';
     btn.style.background = '#10b981';
     btn.style.color = 'white';
+    btn.style.borderColor = '#10b981';
     btn.style.transform = 'scale(0.95)';
 
     setTimeout(() => {
       btn.innerHTML = originalContent;
       btn.style.background = '';
       btn.style.color = '';
+      btn.style.borderColor = '';
       btn.style.transform = '';
     }, 2000);
   }
 
   function showCopyError(btn) {
     const originalContent = btn.innerHTML;
-    btn.innerHTML = `
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="12" cy="12" r="10"></circle>
-        <line x1="15" y1="9" x2="9" y2="15"></line>
-        <line x1="9" y1="9" x2="15" y2="15"></line>
-      </svg>
-    `;
+    btn.innerHTML = '✗ Failed';
     btn.style.background = '#ef4444';
     btn.style.color = 'white';
+    btn.style.borderColor = '#ef4444';
 
     setTimeout(() => {
       btn.innerHTML = originalContent;
       btn.style.background = '';
       btn.style.color = '';
+      btn.style.borderColor = '';
     }, 2000);
   }
 
