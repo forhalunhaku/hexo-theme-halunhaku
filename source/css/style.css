@@ -216,26 +216,32 @@
   white-space: pre-wrap;
 }
 
+/* Enhanced code block styling with proper container */
 .prose pre,
 .prose-lg pre {
-  @apply p-6 rounded-xl my-8;
+  @apply my-8;
   background-color: var(--secondary-color);
   border: 1px solid var(--border-color);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.1);
   position: relative;
-  overflow: auto;
-  white-space: pre;
-  word-wrap: normal;
-  -webkit-overflow-scrolling: touch;
-  max-width: 100%;
+  overflow: hidden;
+  margin-left: -2rem;
+  margin-right: -2rem;
+  max-width: calc(100% + 4rem);
 }
 
 .prose pre code,
 .prose-lg pre code {
-  @apply bg-transparent p-0 border-0 text-[var(--text-primary-color)];
-  white-space: pre;
-  word-break: normal;
+  @apply bg-transparent border-0 text-[var(--text-primary-color)];
   display: block;
+  padding: 1.5rem 2rem;
+  white-space: pre;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  font-family: 'Fira Code', 'Monaco', 'Cascadia Code', 'Roboto Mono', monospace;
+  font-size: 0.9rem;
+  line-height: 1.6;
 }
 
 /* Beautiful image styling */
@@ -447,15 +453,16 @@
   content: attr(data-lang);
   position: absolute;
   top: 12px;
-  right: 16px;
+  left: 12px;
   background-color: var(--primary-color);
   color: white;
-  padding: 2px 8px;
-  border-radius: 4px;
+  padding: 4px 8px;
+  border-radius: 6px;
   font-size: 0.75rem;
-  font-weight: 500;
+  font-weight: 600;
   text-transform: uppercase;
-  z-index: 1;
+  z-index: 5;
+  letter-spacing: 0.5px;
 }
 
 .prose pre,
@@ -496,25 +503,28 @@
   background: var(--text-primary-color);
 }
 
-/* Simple copy button styles */
+/* Enhanced copy button styles */
 .copy-btn {
   position: absolute;
-  top: 8px;
-  right: 8px;
+  top: 12px;
+  right: 12px;
   background: var(--background-color);
   border: 1px solid var(--border-color);
-  border-radius: 4px;
-  padding: 4px 6px;
-  font-size: 14px;
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 16px;
   cursor: pointer;
-  opacity: 0.7;
-  transition: opacity 0.2s ease;
+  opacity: 0;
+  transition: all 0.2s ease;
   z-index: 10;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .copy-btn:hover {
-  opacity: 1;
-  background: var(--secondary-color);
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+  transform: scale(1.05);
 }
 
 .prose pre:hover .copy-btn,
@@ -522,11 +532,23 @@
   opacity: 1;
 }
 
+/* Always show copy button on mobile */
 @media (max-width: 768px) {
   .copy-btn {
     opacity: 1;
-    font-size: 12px;
+    top: 8px;
+    right: 8px;
+    padding: 4px 6px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .copy-btn {
+    top: 6px;
+    right: 6px;
     padding: 3px 5px;
+    font-size: 12px;
   }
 }
 
@@ -617,6 +639,8 @@
   position: relative;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  margin: 0 auto;
+  max-width: 100%;
 }
 
 .content-wrapper::before {
@@ -627,6 +651,14 @@
   right: 0;
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+}
+
+/* Ensure proper centering on all devices */
+@media (max-width: 768px) {
+  .content-wrapper {
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 /* Line clamp utility */
@@ -755,17 +787,18 @@ a, span, p {
   /* Mobile code blocks */
   .prose pre,
   .prose-lg pre {
-    @apply p-4 my-6 text-sm;
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-    white-space: pre;
-    max-width: 100%;
+    @apply my-6;
+    margin-left: -1rem;
+    margin-right: -1rem;
+    max-width: calc(100% + 2rem);
+    border-radius: 8px;
   }
   
   .prose pre code,
   .prose-lg pre code {
-    white-space: pre;
-    display: block;
+    padding: 1rem 1.5rem;
+    font-size: 0.8rem;
+    line-height: 1.5;
   }
 
   /* Mobile tables */
@@ -842,17 +875,17 @@ a, span, p {
   /* Very small screen adjustments */
   .prose pre,
   .prose-lg pre {
-    @apply p-3 text-xs;
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-    white-space: pre;
+    margin-left: -0.75rem;
+    margin-right: -0.75rem;
+    max-width: calc(100% + 1.5rem);
+    border-radius: 6px;
   }
   
   .prose pre code,
   .prose-lg pre code {
-    white-space: pre;
-    font-size: inherit;
-    display: block;
+    padding: 0.75rem 1rem;
+    font-size: 0.75rem;
+    line-height: 1.4;
   }
 
   .prose blockquote,
