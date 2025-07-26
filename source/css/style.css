@@ -493,6 +493,17 @@ html, body {
   width: 100%;
 }
 
+/* Chinese text and tag optimization */
+.whitespace-nowrap {
+  white-space: nowrap;
+}
+
+/* Prevent Chinese characters from breaking inappropriately */
+a, span, p {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
 /* Mobile optimizations */
 @media (max-width: 768px) {
   /* Ensure containers don't cause horizontal scroll */

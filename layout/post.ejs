@@ -43,11 +43,11 @@
             <% } %>
             
             <% if (page.tags && page.tags.length) { %>
-              <div class="flex items-center gap-2">
+              <div class="flex items-center gap-2 flex-wrap">
                 <span>tagged</span>
                 <% page.tags.each(function(tag, i) { %>
                   <a href="<%= url_for(tag.path) %>" 
-                     class="text-[var(--primary-color)] hover:underline">
+                     class="text-[var(--primary-color)] hover:underline whitespace-nowrap">
                     #<%= tag.name %>
                   </a>
                   <% if (i < page.tags.length - 1) { %>, <% } %>
@@ -68,7 +68,7 @@
             <% if (page.tags && page.tags.length) { %>
               <% page.tags.each(function(tag) { %>
                 <a href="<%= url_for(tag.path) %>" 
-                   class="px-3 py-1 bg-[var(--secondary-color)] text-[var(--text-primary-color)] text-sm rounded-full hover:bg-[var(--primary-color)] hover:text-white transition-colors">
+                   class="px-3 py-1 bg-[var(--secondary-color)] text-[var(--text-primary-color)] text-sm rounded-full hover:bg-[var(--primary-color)] hover:text-white transition-colors whitespace-nowrap">
                   <%= tag.name %>
                 </a>
               <% }); %>
