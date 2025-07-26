@@ -180,6 +180,18 @@
   background-color: var(--secondary-color);
   color: var(--primary-color);
   border: 1px solid var(--border-color);
+  word-break: break-all;
+  overflow-wrap: break-word;
+}
+
+/* Inline code should break when necessary */
+.prose p code,
+.prose-lg p code,
+.prose li code,
+.prose-lg li code {
+  word-break: break-all;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
 }
 
 .prose pre,
@@ -188,11 +200,18 @@
   background-color: var(--secondary-color);
   border: 1px solid var(--border-color);
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  white-space: pre;
+  word-wrap: normal;
+  overflow-wrap: normal;
+  -webkit-overflow-scrolling: touch;
 }
 
 .prose pre code,
 .prose-lg pre code {
   @apply bg-transparent p-0 border-0 text-[var(--text-primary-color)];
+  white-space: pre;
+  word-break: normal;
+  overflow-wrap: normal;
 }
 
 /* Beautiful image styling */
@@ -412,11 +431,35 @@
   font-size: 0.75rem;
   font-weight: 500;
   text-transform: uppercase;
+  z-index: 1;
 }
 
 .prose pre,
 .prose-lg pre {
   position: relative;
+}
+
+/* Code block scroll indicator */
+.prose pre::-webkit-scrollbar,
+.prose-lg pre::-webkit-scrollbar {
+  height: 8px;
+}
+
+.prose pre::-webkit-scrollbar-track,
+.prose-lg pre::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+.prose pre::-webkit-scrollbar-thumb,
+.prose-lg pre::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 4px;
+}
+
+.prose pre::-webkit-scrollbar-thumb:hover,
+.prose-lg pre::-webkit-scrollbar-thumb:hover {
+  background: var(--text-primary-color);
 }
 
 /* Keyboard keys */
@@ -555,6 +598,15 @@ a, span, p {
     @apply p-4 my-6 text-sm;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+    white-space: pre;
+    word-wrap: normal;
+    max-width: 100%;
+  }
+  
+  .prose pre code,
+  .prose-lg pre code {
+    white-space: pre;
+    word-break: normal;
   }
 
   /* Mobile tables */
@@ -632,6 +684,17 @@ a, span, p {
   .prose pre,
   .prose-lg pre {
     @apply p-3 text-xs;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: pre;
+    word-wrap: normal;
+  }
+  
+  .prose pre code,
+  .prose-lg pre code {
+    white-space: pre;
+    word-break: normal;
+    font-size: inherit;
   }
 
   .prose blockquote,
