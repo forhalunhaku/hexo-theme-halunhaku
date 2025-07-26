@@ -23,7 +23,7 @@
       // Create copy button with improved styling
       const copyBtn = document.createElement('button');
       copyBtn.className = 'copy-btn';
-      copyBtn.innerHTML = 'Copy';
+      copyBtn.innerHTML = '📋';
       copyBtn.title = 'Copy code';
       copyBtn.setAttribute('aria-label', 'Copy code to clipboard');
 
@@ -83,34 +83,32 @@
 
   function showCopySuccess(btn) {
     const originalContent = btn.innerHTML;
-    btn.innerHTML = '✓ Copied';
+    btn.innerHTML = '✅';
     btn.style.background = '#10b981';
-    btn.style.color = 'white';
     btn.style.borderColor = '#10b981';
-    btn.style.transform = 'scale(0.95)';
+    btn.style.transform = 'scale(1.1)';
 
     setTimeout(() => {
       btn.innerHTML = originalContent;
       btn.style.background = '';
-      btn.style.color = '';
       btn.style.borderColor = '';
       btn.style.transform = '';
-    }, 2000);
+    }, 1500);
   }
 
   function showCopyError(btn) {
     const originalContent = btn.innerHTML;
-    btn.innerHTML = '✗ Failed';
+    btn.innerHTML = '❌';
     btn.style.background = '#ef4444';
-    btn.style.color = 'white';
     btn.style.borderColor = '#ef4444';
+    btn.style.transform = 'scale(1.1)';
 
     setTimeout(() => {
       btn.innerHTML = originalContent;
       btn.style.background = '';
-      btn.style.color = '';
       btn.style.borderColor = '';
-    }, 2000);
+      btn.style.transform = '';
+    }, 1500);
   }
 
   // Debounced initialization to prevent excessive calls
