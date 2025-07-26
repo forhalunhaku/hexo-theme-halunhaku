@@ -260,39 +260,39 @@
   z-index: 2;
 }
 
-/* Enhanced copy button styles */
+/* Enhanced copy button styles - Modern Design */
 .copy-btn {
   position: absolute;
   top: 12px;
   right: 12px;
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%);
+  border: 1px solid rgba(12, 127, 242, 0.2);
   border-radius: 8px;
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   cursor: pointer;
-  opacity: 0.7;
+  opacity: 0;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 10;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 16px;
-  line-height: 1;
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
+  transform: translateY(-4px) scale(0.9);
 }
 
 .copy-btn:hover {
   opacity: 1;
-  background: rgba(255, 255, 255, 1);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.95) 100%);
   border-color: var(--primary-color);
   transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 24px rgba(12, 127, 242, 0.2);
 }
 
 .copy-btn:active {
@@ -300,16 +300,24 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
-/* Show copy button on hover for desktop */
-.prose pre .copy-btn,
-.prose-lg pre .copy-btn {
-  opacity: 0;
-  transform: translateY(-4px) scale(0.9);
+.copy-btn.success {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border-color: #10b981;
+  color: white;
+  transform: translateY(-2px) scale(1.05);
 }
 
+.copy-btn.error {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  border-color: #ef4444;
+  color: white;
+  transform: translateY(-2px) scale(1.05);
+}
+
+/* Show copy button on hover for desktop */
 .prose pre:hover .copy-btn,
 .prose-lg pre:hover .copy-btn {
-  opacity: 0.7;
+  opacity: 0.8;
   transform: translateY(0) scale(1);
 }
 
@@ -332,8 +340,8 @@
   .copy-btn {
     top: 10px;
     right: 10px;
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     font-size: 14px;
     border-radius: 6px;
   }
@@ -343,8 +351,8 @@
   .copy-btn {
     top: 8px;
     right: 8px;
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
     font-size: 12px;
     border-radius: 5px;
   }
@@ -353,13 +361,25 @@
 /* Dark mode adjustments */
 @media (prefers-color-scheme: dark) {
   .copy-btn {
-    background: rgba(0, 0, 0, 0.7);
-    border-color: rgba(255, 255, 255, 0.2);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.7) 100%);
+    border-color: rgba(12, 127, 242, 0.3);
+    color: rgba(255, 255, 255, 0.9);
   }
   
   .copy-btn:hover {
-    background: rgba(0, 0, 0, 0.9);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.8) 100%);
     border-color: var(--primary-color);
+    box-shadow: 0 8px 24px rgba(12, 127, 242, 0.3);
+  }
+  
+  .copy-btn.success {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    border-color: #10b981;
+  }
+  
+  .copy-btn.error {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    border-color: #ef4444;
   }
 }
 
@@ -370,6 +390,26 @@
 
 .copy-btn::-moz-selection {
   background: transparent;
+}
+
+/* Enhanced code block styling */
+.prose pre,
+.prose-lg pre {
+  position: relative;
+  overflow: visible;
+}
+
+/* Shake animation for error state */
+@keyframes shake {
+  0%, 100% { transform: translateX(0) scale(1.1); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-2px) scale(1.1); }
+  20%, 40%, 60%, 80% { transform: translateX(2px) scale(1.1); }
+}
+
+/* Rotate animation for success state */
+@keyframes rotate {
+  from { transform: scale(1.1) rotate(0deg); }
+  to { transform: scale(1.1) rotate(360deg); }
 }
 
 /* Beautiful image styling */
