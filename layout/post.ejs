@@ -10,10 +10,13 @@
         <!-- Post Header -->
         <header class="mb-12">
           <% if (page.cover || page.thumbnail) { %>
-            <div class="w-full h-96 mb-8 rounded-lg overflow-hidden">
+            <div class="w-full mb-8 rounded-lg overflow-hidden bg-[var(--secondary-color)]">
               <img src="<%= page.cover || page.thumbnail %>" 
                    alt="<%= page.title %>" 
-                   class="w-full h-full object-cover">
+                   class="w-full h-auto max-h-[70vh] object-contain rounded-lg shadow-lg transition-transform duration-300 hover:scale-[1.02]"
+                   loading="lazy"
+                   onload="this.style.opacity='1'"
+                   style="opacity: 0; transition: opacity 0.3s ease;">
             </div>
           <% } %>
           

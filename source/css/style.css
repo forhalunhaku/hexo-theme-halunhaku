@@ -380,6 +380,32 @@
   border: 1px solid var(--border-color);
 }
 
+/* Post cover image styling */
+article header img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  background-color: var(--secondary-color);
+  border-radius: 8px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+article header img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
+}
+
+/* Cover image container */
+article header > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .prose, .prose-lg {
@@ -433,6 +459,11 @@
     @apply my-6 rounded-lg;
     max-width: 100%;
     height: auto;
+  }
+  
+  /* Mobile cover image optimization */
+  article header img {
+    max-height: 50vh !important;
   }
   
   /* Mobile lists */
