@@ -484,26 +484,11 @@
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  /* Prevent horizontal overflow */
-  body {
-    overflow-x: hidden;
-  }
-  
-  /* Ensure containers don't exceed viewport width */
-  .container {
-    max-width: 100vw;
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-
   .prose,
   .prose-lg {
-    @apply text-base px-2;
+    @apply text-base px-4;
     font-size: 1rem;
     line-height: 1.6;
-    max-width: 100%;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
   }
 
   .prose h1,
@@ -590,15 +575,9 @@
 
 /* Extra small screens */
 @media (max-width: 480px) {
-  /* Further reduce container padding for very small screens */
-  .container {
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
-  }
-
   .prose,
   .prose-lg {
-    @apply px-1;
+    @apply px-2;
     font-size: 0.95rem;
   }
 
@@ -622,12 +601,5 @@
   .prose-lg blockquote {
     @apply pl-3 pr-1 py-2;
     font-size: 0.9rem;
-  }
-  
-  /* Ensure text doesn't overflow */
-  h1, h2, h3, h4, h5, h6 {
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    hyphens: auto;
   }
 }
