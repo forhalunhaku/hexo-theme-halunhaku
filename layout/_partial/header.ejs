@@ -2,21 +2,21 @@
   <div class="container mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-24 <%= page.layout === 'index' ? 'border-b border-[var(--border-color)]' : '' %>">
       <!-- Logo and Title -->
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
         <% if (theme.site_logo) { %>
           <% if (theme.logo_path) { %>
             <!-- 自定义Logo -->
             <img src="<%= theme.logo_path %>" 
                  alt="<%= theme.site_title %>" 
-                 class="h-8 w-8 object-contain">
+                 class="h-6 w-6 sm:h-8 sm:w-8 object-contain flex-shrink-0">
           <% } else { %>
             <!-- 默认SVG Logo -->
-            <svg class="h-8 w-8 text-[var(--primary-color)]" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+            <svg class="h-6 w-6 sm:h-8 sm:w-8 text-[var(--primary-color)] flex-shrink-0" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
               <path clip-rule="evenodd" d="M24 4H6V17.3333V30.6667H24V44H42V30.6667V17.3333H24V4Z" fill="currentColor" fill-rule="evenodd"></path>
             </svg>
           <% } %>
         <% } %>
-        <h1 class="text-3xl font-bold tracking-tight"><%= theme.site_title || config.title %></h1>
+        <h1 class="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold tracking-tight truncate min-w-0"><%= theme.site_title || config.title %></h1>
       </div>
       
       <!-- Navigation -->
