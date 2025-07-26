@@ -382,15 +382,92 @@
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .prose {
-    @apply text-base;
+  .prose, .prose-lg {
+    @apply text-base px-4;
+    font-size: 1rem;
+    line-height: 1.6;
   }
   
-  .prose h1 {
-    @apply text-2xl;
+  .prose h1, .prose-lg h1 {
+    @apply text-2xl mb-6 mt-8;
   }
   
-  .prose h2 {
+  .prose h2, .prose-lg h2 {
+    @apply text-xl mb-4 mt-6;
+  }
+  
+  .prose h3, .prose-lg h3 {
+    @apply text-lg mb-3 mt-5;
+  }
+  
+  .prose h4, .prose-lg h4 {
+    @apply text-base mb-2 mt-4;
+  }
+  
+  /* Mobile-friendly blockquotes */
+  .prose blockquote, .prose-lg blockquote {
+    @apply mx-0 pl-4 pr-2 py-3 my-6;
+    font-size: 0.95rem;
+  }
+  
+  /* Mobile code blocks */
+  .prose pre, .prose-lg pre {
+    @apply p-4 my-6 text-sm;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Mobile tables */
+  .prose table, .prose-lg table {
+    @apply text-sm;
+    min-width: 100%;
+  }
+  
+  .prose th, .prose-lg th,
+  .prose td, .prose-lg td {
+    @apply px-3 py-2;
+  }
+  
+  /* Mobile images */
+  .prose img, .prose-lg img {
+    @apply my-6 rounded-lg;
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Mobile lists */
+  .prose ul, .prose ol, .prose-lg ul, .prose-lg ol {
+    @apply mb-4 pl-4;
+  }
+  
+  .prose ul > li, .prose-lg ul > li,
+  .prose ol > li, .prose-lg ol > li {
+    @apply mb-2 pl-4;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+  .prose, .prose-lg {
+    @apply px-2;
+    font-size: 0.95rem;
+  }
+  
+  .prose h1, .prose-lg h1 {
     @apply text-xl;
+  }
+  
+  .prose h2, .prose-lg h2 {
+    @apply text-lg;
+  }
+  
+  /* Very small screen adjustments */
+  .prose pre, .prose-lg pre {
+    @apply p-3 text-xs;
+  }
+  
+  .prose blockquote, .prose-lg blockquote {
+    @apply pl-3 pr-1 py-2;
+    font-size: 0.9rem;
   }
 }
