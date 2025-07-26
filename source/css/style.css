@@ -196,14 +196,19 @@
 
 .prose pre,
 .prose-lg pre {
-  @apply p-6 rounded-xl my-8 overflow-x-auto;
+  @apply p-6 rounded-xl my-8;
   background-color: var(--secondary-color);
   border: 1px solid var(--border-color);
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow-x: auto;
+  overflow-y: hidden;
   white-space: pre;
   word-wrap: normal;
   overflow-wrap: normal;
   -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+  width: 100%;
 }
 
 .prose pre code,
@@ -212,6 +217,9 @@
   white-space: pre;
   word-break: normal;
   overflow-wrap: normal;
+  display: block;
+  width: max-content;
+  min-width: 100%;
 }
 
 /* Beautiful image styling */
@@ -462,6 +470,70 @@
   background: var(--text-primary-color);
 }
 
+/* Copy button styles */
+.copy-button {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 10px;
+  background-color: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  color: var(--text-secondary-color);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  opacity: 0;
+  z-index: 10;
+}
+
+.prose pre:hover .copy-button,
+.prose-lg pre:hover .copy-button {
+  opacity: 1;
+}
+
+.copy-button:hover {
+  background-color: var(--secondary-color);
+  color: var(--text-primary-color);
+  border-color: var(--primary-color);
+}
+
+.copy-button.copied {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.copy-button .copy-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.copy-button .copy-text {
+  white-space: nowrap;
+}
+
+/* Mobile copy button adjustments */
+@media (max-width: 768px) {
+  .copy-button {
+    opacity: 1;
+    top: 8px;
+    right: 8px;
+    padding: 4px 8px;
+    font-size: 11px;
+  }
+  
+  .copy-button .copy-icon {
+    width: 12px;
+    height: 12px;
+  }
+}
+
 /* Keyboard keys */
 .prose kbd,
 .prose-lg kbd {
@@ -597,16 +669,21 @@ a, span, p {
   .prose-lg pre {
     @apply p-4 my-6 text-sm;
     overflow-x: auto;
+    overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
     white-space: pre;
     word-wrap: normal;
     max-width: 100%;
+    width: 100%;
   }
   
   .prose pre code,
   .prose-lg pre code {
     white-space: pre;
     word-break: normal;
+    display: block;
+    width: max-content;
+    min-width: 100%;
   }
 
   /* Mobile tables */
@@ -685,9 +762,11 @@ a, span, p {
   .prose-lg pre {
     @apply p-3 text-xs;
     overflow-x: auto;
+    overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
     white-space: pre;
     word-wrap: normal;
+    width: 100%;
   }
   
   .prose pre code,
@@ -695,6 +774,9 @@ a, span, p {
     white-space: pre;
     word-break: normal;
     font-size: inherit;
+    display: block;
+    width: max-content;
+    min-width: 100%;
   }
 
   .prose blockquote,
