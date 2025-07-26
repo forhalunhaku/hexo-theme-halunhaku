@@ -7,7 +7,7 @@
 
 A modern, responsive Hexo theme with multiple layout styles inspired by contemporary design patterns.
 
-![Theme Preview](https://pic1.imgdb.cn/item/68843ed558cb8da5c8e046e7.png)
+![Theme Preview](./images/preview.png)
 
 ## 🎨 Demo
 
