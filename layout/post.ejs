@@ -5,10 +5,12 @@
   <div class="min-h-screen flex flex-col">
     <%- partial('_partial/header') %>
     
-    <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
       <article class="max-w-4xl mx-auto">
         <!-- Post Header -->
-        <header class="mb-12">
+        <header class="mb-12 relative">
+          <!-- Decorative background -->
+          <div class="absolute inset-0 bg-gradient-to-r from-[var(--primary-color)]/5 to-transparent rounded-2xl -z-10"></div>
           <% if (page.cover || page.thumbnail) { %>
             <div class="w-full mb-8 rounded-lg overflow-hidden bg-[var(--secondary-color)] post-cover-container">
               <img src="<%= page.cover || page.thumbnail %>" 
@@ -20,85 +22,122 @@
             </div>
           <% } %>
           
-          <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-6">
-            <%= page.title %>
-          </h1>
-          
-          <div class="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 text-[var(--text-secondary-color)] text-sm">
+          <div class="relative z-10 p-6 sm:p-8">
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-6 bg-gradient-to-r from-[var(--text-primary-color)] to-[var(--primary-color)] bg-clip-text text-transparent">
+              <%= page.title %>
+            </h1>
+            
+            <div class="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 text-[var(--text-secondary-color)] text-sm bg-[var(--background-color)]/80 backdrop-blur-sm rounded-lg p-4 border border-[var(--border-color)]/50">
             <time datetime="<%= page.date.toISOString() %>">
               <%= moment(page.date).format('MMMM DD, YYYY') %>
             </time>
             
-            <% if (page.categories && page.categories.length) { %>
-              <div class="flex items-center gap-2">
-                <span>in</span>
-                <% page.categories.each(function(cat, i) { %>
-                  <a href="<%= url_for(cat.path) %>" 
-                     class="text-[var(--primary-color)] hover:underline">
-                    <%= cat.name %>
-                  </a>
-                  <% if (i < page.categories.length - 1) { %>, <% } %>
-                <% }); %>
-              </div>
-            <% } %>
-            
-            <% if (page.tags && page.tags.length) { %>
-              <div class="flex items-center gap-2 flex-wrap">
-                <span>tagged</span>
-                <% page.tags.each(function(tag, i) { %>
-                  <a href="<%= url_for(tag.path) %>" 
-                     class="text-[var(--primary-color)] hover:underline whitespace-nowrap">
-                    #<%= tag.name %>
-                  </a>
-                  <% if (i < page.tags.length - 1) { %>, <% } %>
-                <% }); %>
-              </div>
-            <% } %>
+              <% if (page.categories && page.categories.length) { %>
+                <div class="flex items-center gap-2">
+                  <svg class="w-4 h-4 text-[var(--primary-color)]" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z"></path>
+                  </svg>
+                  <span>in</span>
+                  <% page.categories.each(function(cat, i) { %>
+                    <a href="<%= url_for(cat.path) %>" 
+                       class="text-[var(--primary-color)] hover:underline font-medium">
+                      <%= cat.name %>
+                    </a>
+                    <% if (i < page.categories.length - 1) { %>, <% } %>
+                  <% }); %>
+                </div>
+              <% } %>
+              
+              <% if (page.tags && page.tags.length) { %>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <svg class="w-4 h-4 text-[var(--primary-color)]" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path>
+                  </svg>
+                  <% page.tags.each(function(tag, i) { %>
+                    <a href="<%= url_for(tag.path) %>" 
+                       class="text-[var(--primary-color)] hover:underline whitespace-nowrap font-medium">
+                      #<%= tag.name %>
+                    </a>
+                    <% if (i < page.tags.length - 1) { %>, <% } %>
+                  <% }); %>
+                </div>
+              <% } %>
+            </div>
           </div>
         </header>
         
         <!-- Post Content -->
-        <div class="prose prose-lg max-w-none">
-          <%- page.content %>
+        <div class="prose prose-lg max-w-none relative">
+          <!-- Reading progress indicator -->
+          <div class="reading-progress-container">
+            <div class="reading-progress-bar"></div>
+          </div>
+          
+          <!-- Content with enhanced styling -->
+          <div class="content-wrapper bg-[var(--background-color)] rounded-2xl p-6 sm:p-8 lg:p-10 shadow-sm border border-[var(--border-color)]/30">
+            <%- page.content %>
+          </div>
         </div>
         
         <!-- Post Footer -->
-        <footer class="mt-16 pt-8 border-t border-[var(--border-color)]">
-          <div class="flex flex-wrap gap-2 mb-8">
-            <% if (page.tags && page.tags.length) { %>
-              <% page.tags.each(function(tag) { %>
-                <a href="<%= url_for(tag.path) %>" 
-                   class="px-3 py-1 bg-[var(--secondary-color)] text-[var(--text-primary-color)] text-sm rounded-full hover:bg-[var(--primary-color)] hover:text-white transition-colors whitespace-nowrap">
-                  <%= tag.name %>
-                </a>
-              <% }); %>
-            <% } %>
+        <footer class="mt-16 pt-8 relative">
+          <!-- Decorative divider -->
+          <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-transparent via-[var(--primary-color)] to-transparent rounded-full"></div>
+          
+          <!-- Enhanced tags section -->
+          <div class="bg-gradient-to-r from-[var(--secondary-color)]/50 to-transparent rounded-2xl p-6 mb-8">
+            <h3 class="text-lg font-semibold mb-4 text-[var(--text-primary-color)] flex items-center gap-2">
+              <svg class="w-5 h-5 text-[var(--primary-color)]" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path>
+              </svg>
+              Tags
+            </h3>
+            <div class="flex flex-wrap gap-3">
+              <% if (page.tags && page.tags.length) { %>
+                <% page.tags.each(function(tag) { %>
+                  <a href="<%= url_for(tag.path) %>" 
+                     class="px-4 py-2 bg-[var(--background-color)] text-[var(--text-primary-color)] text-sm rounded-full border border-[var(--border-color)] hover:bg-[var(--primary-color)] hover:text-white hover:border-[var(--primary-color)] transition-all duration-300 whitespace-nowrap shadow-sm hover:shadow-md transform hover:-translate-y-0.5">
+                    <%= tag.name %>
+                  </a>
+                <% }); %>
+              <% } %>
+            </div>
           </div>
           
-          <!-- Navigation -->
-          <nav class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <!-- Enhanced Navigation -->
+          <nav class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <% if (page.prev) { %>
               <a href="<%= url_for(page.prev.path) %>" 
-                 class="flex items-center gap-2 text-[var(--primary-color)] hover:underline max-w-full sm:max-w-[45%]">
-                <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                </svg>
-                <span class="truncate">Previous: <%= page.prev.title %></span>
+                 class="group p-6 bg-[var(--background-color)] border border-[var(--border-color)] rounded-xl hover:border-[var(--primary-color)] transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1">
+                <div class="flex items-center gap-3 mb-2">
+                  <svg class="w-5 h-5 text-[var(--primary-color)] group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  <span class="text-sm text-[var(--text-secondary-color)] font-medium">Previous Article</span>
+                </div>
+                <h4 class="text-[var(--text-primary-color)] font-semibold group-hover:text-[var(--primary-color)] transition-colors line-clamp-2">
+                  <%= page.prev.title %>
+                </h4>
               </a>
             <% } else { %>
-              <div class="hidden sm:block"></div>
+              <div></div>
             <% } %>
             
             <% if (page.next) { %>
               <a href="<%= url_for(page.next.path) %>" 
-                 class="flex items-center gap-2 text-[var(--primary-color)] hover:underline max-w-full sm:max-w-[45%] sm:text-right">
-                <span class="truncate">Next: <%= page.next.title %></span>
-                <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
-                </svg>
+                 class="group p-6 bg-[var(--background-color)] border border-[var(--border-color)] rounded-xl hover:border-[var(--primary-color)] transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1 text-right">
+                <div class="flex items-center justify-end gap-3 mb-2">
+                  <span class="text-sm text-[var(--text-secondary-color)] font-medium">Next Article</span>
+                  <svg class="w-5 h-5 text-[var(--primary-color)] group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                </div>
+                <h4 class="text-[var(--text-primary-color)] font-semibold group-hover:text-[var(--primary-color)] transition-colors line-clamp-2">
+                  <%= page.next.title %>
+                </h4>
               </a>
             <% } else { %>
-              <div class="hidden sm:block"></div>
+              <div></div>
             <% } %>
           </nav>
         </footer>
