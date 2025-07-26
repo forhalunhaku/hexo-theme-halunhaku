@@ -482,13 +482,33 @@
   box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
 }
 
-/* Responsive adjustments */
+/* Mobile-first responsive adjustments */
+/* Prevent horizontal overflow on all screen sizes */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* Mobile optimizations */
 @media (max-width: 768px) {
+  /* Ensure containers don't cause horizontal scroll */
+  .container {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* Optimize prose content for mobile */
   .prose,
   .prose-lg {
     @apply text-base px-4;
     font-size: 1rem;
     line-height: 1.6;
+    max-width: 100%;
   }
 
   .prose h1,
@@ -575,6 +595,12 @@
 
 /* Extra small screens */
 @media (max-width: 480px) {
+  /* Further optimize for very small screens */
+  .container {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  
   .prose,
   .prose-lg {
     @apply px-2;
@@ -601,5 +627,11 @@
   .prose-lg blockquote {
     @apply pl-3 pr-1 py-2;
     font-size: 0.9rem;
+  }
+  
+  /* Ensure text wrapping on very small screens */
+  h1, h2, h3, h4, h5, h6 {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 }

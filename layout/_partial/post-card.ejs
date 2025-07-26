@@ -25,7 +25,7 @@
       </div>
     <% } %>
     
-    <h2 class="text-2xl font-bold leading-snug tracking-tight mb-2">
+    <h2 class="text-xl sm:text-2xl font-bold leading-snug tracking-tight mb-2">
       <a class="hover:text-[var(--primary-color)] transition-colors" href="<%= url_for(post.path) %>">
         <%= post.title %>
       </a>
@@ -40,7 +40,7 @@
     </div>
   </div>
   
-  <p class="text-[var(--text-secondary-color)] text-lg leading-relaxed">
+  <p class="text-[var(--text-secondary-color)] text-base sm:text-lg leading-relaxed">
     <%= get_excerpt(post, theme.excerpt_length) %>
   </p>
   
