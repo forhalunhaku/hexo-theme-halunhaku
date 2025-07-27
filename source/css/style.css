@@ -96,16 +96,7 @@
   color: var(--text-primary-color);
 }
 
-.prose p:first-of-type::first-letter,
-.prose-lg p:first-of-type::first-letter {
-  font-size: 3.5em;
-  font-weight: bold;
-  line-height: 1;
-  float: left;
-  margin: 0.1em 0.1em 0 0;
-  color: var(--primary-color);
-  font-family: 'Newsreader', serif;
-}
+/* First letter styling removed for cleaner appearance */
 
 /* Enhanced links */
 .prose a,
@@ -143,7 +134,7 @@
 
 .prose ul>li::before,
 .prose-lg ul>li::before {
-  content: "\\2022";
+  content: "\2022";
   color: var(--primary-color);
   font-weight: bold;
   position: absolute;
@@ -534,7 +525,7 @@
 
 .prose hr::after,
 .prose-lg hr::after {
-  content: "\\2726";
+  content: "\2726";
   position: absolute;
   left: 50%;
   top: 50%;
@@ -607,7 +598,7 @@
 
 .prose .footnotes::before,
 .prose-lg .footnotes::before {
-  content: "\\1F4DD Notes";
+  content: "\1F4DD Notes";
   font-weight: bold;
   color: var(--primary-color);
   display: block;
@@ -661,7 +652,7 @@
   border-radius: 6px;
   font-size: 0.75rem;
   font-weight: 600;
-  text-transform: uppercase;
+  text-transform: none;
   z-index: 5;
   letter-spacing: 0.5px;
 }
