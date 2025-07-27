@@ -1,7 +1,7 @@
 {
   "name": "hexo-theme-halunhaku",
   "version": "2.0.0",
-  "description": "A modern, responsive Hexo theme with multiple layout styles inspired by contemporary design patterns",
+  "description": "A modern, responsive Hexo theme with enhanced code blocks, perfect cover images, and Chinese text optimization. Production-ready with mobile-first design.",
   "main": "index.js",
   "keywords": [
     "hexo",
@@ -14,7 +14,13 @@
     "dark-theme",
     "light-theme",
     "categories",
-    "tags"
+    "tags",
+    "code-highlighting",
+    "chinese-support",
+    "mobile-first",
+    "production-ready",
+    "cover-images",
+    "copy-button"
   ],
   "author": {
     "name": "forhalunhaku",
@@ -42,6 +48,9 @@
     "scripts",
     "source",
     "_config.yml",
-    "README.md"
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "images"
   ]
 }
