@@ -2,49 +2,66 @@
 (function () {
   'use strict';
 
-  function initCopyButtons() {
-    // Remove existing copy buttons to prevent duplicates
-    document.querySelectorAll('.copy-btn, .copy-button').forEach(btn => {
-      btn.remove();
-    });
+  // Use a unique identifier to prevent duplicate processing
+  const COPY_BUTTON_CLASS = 'copy-btn';
+  const PROCESSED_FLAG = 'data-copy-processed';
 
-    // Process all code blocks
-    const codeBlocks = document.querySelectorAll('pre');
+  function initCopyButtons() {
+    // Use a more efficient selector and check for existing buttons
+    const codeBlocks = document.querySelectorAll('pre:not([' + PROCESSED_FLAG + '])');
 
     codeBlocks.forEach(function (codeBlock) {
-      // Skip if already processed
-      if (codeBlock.querySelector('.copy-btn') || codeBlock.hasAttribute('data-copy-processed')) {
+      // Double-check to prevent race conditions
+      if (codeBlock.querySelector('.' + COPY_BUTTON_CLASS) || codeBlock.hasAttribute(PROCESSED_FLAG)) {
         return;
       }
 
-      // Mark as processed
-      codeBlock.setAttribute('data-copy-processed', 'true');
+      // Mark as processed immediately
+      codeBlock.setAttribute(PROCESSED_FLAG, 'true');
 
-      // Create copy button with improved styling
+      // Create enhanced copy button
       const copyBtn = document.createElement('button');
-      copyBtn.className = 'copy-btn';
+      copyBtn.className = COPY_BUTTON_CLASS;
       copyBtn.innerHTML = '📋';
-      copyBtn.title = 'Copy code';
-      copyBtn.setAttribute('aria-label', 'Copy code to clipboard');
+      copyBtn.title = '复制代码';
+      copyBtn.setAttribute('aria-label', '复制代码到剪贴板');
 
-      // Enhanced click handler
+      // Enhanced click handler with better UX
       copyBtn.addEventListener('click', async function (e) {
         e.preventDefault();
         e.stopPropagation();
 
+        // Find the actual code content
         const code = codeBlock.querySelector('code');
         const text = code ? code.textContent.trim() : codeBlock.textContent.trim();
+
+        if (!text) {
+          showCopyError(copyBtn);
+          return;
+        }
 
         try {
           await copyToClipboard(text);
           showCopySuccess(copyBtn);
         } catch (err) {
-          console.error('Copy failed:', err);
+          console.error('复制失败:', err);
           showCopyError(copyBtn);
         }
       });
 
+      // Add hover effects for better UX
+      copyBtn.addEventListener('mouseenter', function() {
+        this.style.opacity = '1';
+      });
+
+      copyBtn.addEventListener('mouseleave', function() {
+        if (!this.classList.contains('success') && !this.classList.contains('error')) {
+          this.style.opacity = '';
+        }
+      });
+
       // Add to code block
+      codeBlock.style.position = 'relative';
       codeBlock.appendChild(copyBtn);
     });
   }
@@ -84,90 +101,112 @@
   function showCopySuccess(btn) {
     const originalContent = btn.innerHTML;
     btn.innerHTML = '✅';
-    btn.style.background = '#10b981';
-    btn.style.borderColor = '#10b981';
-    btn.style.transform = 'scale(1.1)';
-
+    btn.classList.add('success');
+    
+    // Add a subtle animation
+    btn.style.transform = 'scale(1.1) rotate(360deg)';
+    
     setTimeout(() => {
       btn.innerHTML = originalContent;
-      btn.style.background = '';
-      btn.style.borderColor = '';
+      btn.classList.remove('success');
       btn.style.transform = '';
-    }, 1500);
+    }, 2000);
   }
 
   function showCopyError(btn) {
     const originalContent = btn.innerHTML;
     btn.innerHTML = '❌';
-    btn.style.background = '#ef4444';
-    btn.style.borderColor = '#ef4444';
+    btn.classList.add('error');
+    
+    // Add shake animation
     btn.style.transform = 'scale(1.1)';
-
+    btn.style.animation = 'shake 0.5s ease-in-out';
+    
     setTimeout(() => {
       btn.innerHTML = originalContent;
-      btn.style.background = '';
-      btn.style.borderColor = '';
+      btn.classList.remove('error');
       btn.style.transform = '';
-    }, 1500);
+      btn.style.animation = '';
+    }, 2000);
   }
 
-  // Debounced initialization to prevent excessive calls
+  // Throttled initialization to prevent excessive calls
   let initTimeout;
-  function debouncedInit() {
+  let isInitialized = false;
+  
+  function throttledInit() {
+    if (isInitialized) return;
+    
     clearTimeout(initTimeout);
-    initTimeout = setTimeout(initCopyButtons, 100);
+    initTimeout = setTimeout(() => {
+      initCopyButtons();
+      isInitialized = true;
+    }, 50);
   }
 
   // Initialize when DOM is ready
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', debouncedInit);
+    document.addEventListener('DOMContentLoaded', throttledInit);
   } else {
-    debouncedInit();
+    throttledInit();
   }
 
   // Handle dynamic content changes with improved performance
   let lastUrl = location.href;
   const observer = new MutationObserver((mutations) => {
-    let shouldReinit = false;
-
-    // Check if URL changed (SPA navigation)
     const currentUrl = location.href;
+    let hasNewCodeBlocks = false;
+
+    // Check for SPA navigation
     if (currentUrl !== lastUrl) {
       lastUrl = currentUrl;
-      shouldReinit = true;
+      // Reset processed flags for new page
+      document.querySelectorAll('[' + PROCESSED_FLAG + ']').forEach(el => {
+        el.removeAttribute(PROCESSED_FLAG);
+      });
+      throttledInit();
+      return;
     }
 
-    // Check if new code blocks were added
-    if (!shouldReinit) {
-      for (const mutation of mutations) {
-        if (mutation.type === 'childList') {
-          for (const node of mutation.addedNodes) {
-            if (node.nodeType === Node.ELEMENT_NODE) {
-              if (node.tagName === 'PRE' || node.querySelector('pre')) {
-                shouldReinit = true;
-                break;
-              }
+    // Efficient check for new code blocks
+    for (const mutation of mutations) {
+      if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+        for (const node of mutation.addedNodes) {
+          if (node.nodeType === Node.ELEMENT_NODE) {
+            if (node.tagName === 'PRE' || node.querySelector?.('pre')) {
+              hasNewCodeBlocks = true;
+              break;
             }
           }
-          if (shouldReinit) break;
         }
       }
+      if (hasNewCodeBlocks) break;
     }
 
-    if (shouldReinit) {
-      debouncedInit();
+    if (hasNewCodeBlocks) {
+      throttledInit();
     }
   });
 
-  observer.observe(document.body, {
-    childList: true,
-    subtree: true
-  });
+  // Start observing after initial load
+  setTimeout(() => {
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+  }, 100);
 
   // Cleanup on page unload
   window.addEventListener('beforeunload', () => {
     observer.disconnect();
     clearTimeout(initTimeout);
+  });
+
+  // Handle visibility change to prevent memory leaks
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      clearTimeout(initTimeout);
+    }
   });
 
 })();
