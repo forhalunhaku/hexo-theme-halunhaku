@@ -5,7 +5,7 @@
 [![Hexo Version](https://img.shields.io/badge/hexo-%3E%3D%206.0.0-blue.svg)](https://hexo.io)
 [![GitHub](https://img.shields.io/github/stars/forhalunhaku/hexo-theme-halunhaku?style=social)](https://github.com/forhalunhaku/hexo-theme-halunhaku)
 
-A modern, responsive Hexo theme with multiple layout styles inspired by contemporary design patterns.
+A modern, responsive Hexo theme with multiple layout styles inspired by contemporary design patterns. **Version 2.0** brings major improvements in functionality, user experience, and code quality.
 
 ![Theme Preview](./images/preview.png)
 
@@ -13,14 +13,31 @@ A modern, responsive Hexo theme with multiple layout styles inspired by contempo
 
 - [Live Demo](https://blog.halunhaku.top) 
 - [Documentation](https://blog.halunhaku.top/2025/07/26/hexo-theme-halunhaku-guide/) 
-## Features
 
-- 🎨 **Multiple Layout Styles**: Different color schemes for home, category, and tag pages
-- 📱 **Fully Responsive**: Optimized for all device sizes
-- ⚡ **Fast Loading**: Built with Tailwind CSS via CDN
-- 🎯 **SEO Friendly**: Semantic HTML structure
-- 🌙 **Dark/Light Themes**: Different color schemes for different page types
-- 📝 **Clean Typography**: Beautiful reading experience with Newsreader font
+## ✨ Features
+
+### 🎨 Design & Layout
+- **Multiple Layout Styles**: Different color schemes for home, category, and tag pages
+- **Fully Responsive**: Optimized for all device sizes with mobile-first approach
+- **Modern UI**: Clean, contemporary design with smooth animations
+- **Perfect Cover Images**: Complete image display without cropping on all pages
+
+### 💻 Code & Development
+- **Enhanced Code Blocks**: Professional syntax highlighting with single copy button
+- **Smart Copy System**: Advanced clipboard integration with visual feedback
+- **No Duplicate Buttons**: Resolved conflicts with Hexo's built-in highlighter
+- **Developer Tools**: Automated sync system for seamless development
+
+### 🌏 Internationalization
+- **Chinese Text Optimized**: Perfect display for Chinese characters in titles
+- **Multi-language Support**: Proper text rendering for various languages
+- **Typography Excellence**: Optimized line heights and character spacing
+
+### ⚡ Performance & Technical
+- **Fast Loading**: Built with Tailwind CSS and optimized assets
+- **SEO Friendly**: Semantic HTML structure with proper meta tags
+- **Modular CSS**: Clean, maintainable stylesheet architecture
+- **Modern JavaScript**: ES6+ with proper error handling
 
 ## Installation
 

@@ -96,3 +96,12 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.temp
+
+# 本地同步脚本
+sync-theme.ps1
+
+# 测试和配置文件
+*copy.yml
+blog-*.yml
+test-*.md
+*-test.*
