@@ -11,8 +11,11 @@
     const codeBlocks = document.querySelectorAll('pre:not([' + PROCESSED_FLAG + '])');
 
     codeBlocks.forEach(function (codeBlock) {
-      // Double-check to prevent race conditions
-      if (codeBlock.querySelector('.' + COPY_BUTTON_CLASS) || codeBlock.hasAttribute(PROCESSED_FLAG)) {
+      // Double-check to prevent race conditions and remove any existing copy buttons
+      const existingButtons = codeBlock.querySelectorAll('button[class*="copy"], button[title*="复制"], button[title*="copy"], .' + COPY_BUTTON_CLASS);
+      existingButtons.forEach(btn => btn.remove());
+      
+      if (codeBlock.hasAttribute(PROCESSED_FLAG)) {
         return;
       }
 
@@ -135,13 +138,24 @@
   let isInitialized = false;
   
   function throttledInit() {
-    if (isInitialized) return;
-    
     clearTimeout(initTimeout);
     initTimeout = setTimeout(() => {
       initCopyButtons();
       isInitialized = true;
-    }, 50);
+    }, 100);
+  }
+  
+  // Reset initialization flag when page changes
+  function resetInitialization() {
+    isInitialized = false;
+    // Remove all existing copy buttons to prevent duplicates
+    document.querySelectorAll('.copy-btn, button[class*="copy"], button[title*="复制"], button[title*="copy"]').forEach(btn => {
+      if (btn.parentNode) btn.parentNode.removeChild(btn);
+    });
+    // Clear processed flags
+    document.querySelectorAll('[' + PROCESSED_FLAG + ']').forEach(el => {
+      el.removeAttribute(PROCESSED_FLAG);
+    });
   }
 
   // Initialize when DOM is ready
@@ -160,10 +174,7 @@
     // Check for SPA navigation
     if (currentUrl !== lastUrl) {
       lastUrl = currentUrl;
-      // Reset processed flags for new page
-      document.querySelectorAll('[' + PROCESSED_FLAG + ']').forEach(el => {
-        el.removeAttribute(PROCESSED_FLAG);
-      });
+      resetInitialization();
       throttledInit();
       return;
     }
