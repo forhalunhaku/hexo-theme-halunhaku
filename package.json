@@ -1,53 +1,6 @@
 {
   "name": "hexo-theme-halunhaku",
   "version": "2.1.0",
-  "description": "A modern, responsive Hexo theme with multiple layout styles inspired by contemporary design patterns",
-  "main": "index.js",
-  "keywords": [
-    "hexo",
-    "hexo-theme",
-    "theme",
-    "blog",
-    "responsive",
-    "modern",
-    "tailwind",
-    "dark-theme",
-    "light-theme",
-    "categories",
-    "tags"
-  ],
-  "author": {
-    "name": "forhalunhaku",
-    "email": "1202201058@student.stdu.edu.cn",
-    "url": "https://github.com/forhalunhaku"
-  },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/forhalunhaku/hexo-theme-halunhaku.git"
-  },
-  "bugs": {
-    "url": "https://github.com/forhalunhaku/hexo-theme-halunhaku/issues"
-  },
-  "homepage": "https://github.com/forhalunhaku/hexo-theme-halunhaku#readme",
-  "peerDependencies": {
-    "hexo": "^6.0.0 || ^7.0.0"
-  },
-  "engines": {
-    "node": ">=14.0.0",
-    "hexo": ">=6.0.0"
-  },
-  "files": [
-    "layout",
-    "scripts",
-    "source",
-    "_config.yml",
-    "README.md"
-  ]
->>>>>>> d0c3ee4 (chore: release v2.1.0 - enhanced navigation and user experience)
-{
-  "name": "hexo-theme-halunhaku",
-  "version": "2.1.0",
   "description": "A modern, responsive Hexo theme with enhanced navigation, fixed header, and improved user experience. Features code highlighting, mobile-first design, and production-ready optimization.",
   "main": "index.js",
   "keywords": [
@@ -101,52 +54,4 @@
     "LICENSE",
     "bin"
   ]
-=======
-{
-  "name": "hexo-theme-halunhaku",
-  "version": "2.1.0",
-  "description": "A modern, responsive Hexo theme with multiple layout styles inspired by contemporary design patterns",
-  "main": "index.js",
-  "keywords": [
-    "hexo",
-    "hexo-theme",
-    "theme",
-    "blog",
-    "responsive",
-    "modern",
-    "tailwind",
-    "dark-theme",
-    "light-theme",
-    "categories",
-    "tags"
-  ],
-  "author": {
-    "name": "forhalunhaku",
-    "email": "1202201058@student.stdu.edu.cn",
-    "url": "https://github.com/forhalunhaku"
-  },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/forhalunhaku/hexo-theme-halunhaku.git"
-  },
-  "bugs": {
-    "url": "https://github.com/forhalunhaku/hexo-theme-halunhaku/issues"
-  },
-  "homepage": "https://github.com/forhalunhaku/hexo-theme-halunhaku#readme",
-  "peerDependencies": {
-    "hexo": "^6.0.0 || ^7.0.0"
-  },
-  "engines": {
-    "node": ">=14.0.0",
-    "hexo": ">=6.0.0"
-  },
-  "files": [
-    "layout",
-    "scripts",
-    "source",
-    "_config.yml",
-    "README.md"
-  ]
->>>>>>> d0c3ee4 (chore: release v2.1.0 - enhanced navigation and user experience)
 }
