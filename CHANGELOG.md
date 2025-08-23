@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.1] - 2025-08-23
+
+### 🐛 Fixed
+- **Script Loading Error**: Removed shell script from `scripts/` directory that was causing Hexo to fail during initialization
+- **Hexo Compatibility**: Fixed "Invalid or unexpected token" error when running `hexo version` or other commands
+- **Theme Loading**: Ensured clean theme loading without JavaScript syntax errors from shell scripts
+
+### 🛠️ Technical Improvements
+- **File Organization**: Moved all shell scripts to `bin/` directory to prevent Hexo from attempting to load them as JavaScript
+- **Error Prevention**: Eliminated script loading conflicts that could prevent theme functionality
+- **Clean Installation**: Users can now install and use the theme without encountering script-related errors
+
+### 📦 Installation Notes
+- This patch version resolves installation and usage issues for all users
+- No configuration changes required - simply update to v2.1.1
+- Backward compatible with all existing theme configurations
+
 ## [2.1.0] - 2025-08-23
 
 ### 🎨 Enhanced User Experience & Navigation
@@ -146,6 +163,7 @@ This is a complete overhaul of the theme with significant improvements in functi
 - Helper functions and generators
 - Tailwind CSS integration
 
+[2.1.1]: https://github.com/forhalunhaku/hexo-theme-halunhaku/releases/tag/v2.1.1
 [2.1.0]: https://github.com/forhalunhaku/hexo-theme-halunhaku/releases/tag/v2.1.0
 [2.0.0]: https://github.com/forhalunhaku/hexo-theme-halunhaku/releases/tag/v2.0.0
 [1.0.0]: https://github.com/forhalunhaku/hexo-theme-halunhaku/releases/tag/v1.0.0
