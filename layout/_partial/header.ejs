@@ -1,22 +1,24 @@
-<header class="<%= page.layout === 'index' ? 'sticky top-0 bg-[var(--background-color)]/95 backdrop-blur-sm z-10' : 'sticky top-0 z-10 w-full bg-[var(--background-color)]/80 backdrop-blur-md' %>">
+<header class="fixed top-0 left-0 right-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-b border-gray-200/50 dark:border-gray-700/50 shadow-sm fixed">
   <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-16 sm:h-20 lg:h-24 <%= page.layout === 'index' ? 'border-b border-[var(--border-color)]' : '' %>">
+    <div class="flex items-center justify-between h-16 sm:h-20 lg:h-24">
       <!-- Logo and Title -->
       <div class="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
-        <% if (theme.site_logo) { %>
-          <% if (theme.logo_path) { %>
-            <!-- 自定义Logo -->
-            <img src="<%= theme.logo_path %>" 
-                 alt="<%= theme.site_title %>" 
-                 class="h-6 w-6 sm:h-8 sm:w-8 object-contain flex-shrink-0">
-          <% } else { %>
-            <!-- 默认SVG Logo -->
-            <svg class="h-6 w-6 sm:h-8 sm:w-8 text-[var(--primary-color)] flex-shrink-0" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-              <path clip-rule="evenodd" d="M24 4H6V17.3333V30.6667H24V44H42V30.6667V17.3333H24V4Z" fill="currentColor" fill-rule="evenodd"></path>
-            </svg>
+        <a href="<%= url_for('/') %>" class="flex items-center gap-2 sm:gap-3 hover:opacity-80 transition-opacity duration-200" title="回到首页">
+          <% if (theme.site_logo) { %>
+            <% if (theme.logo_path) { %>
+              <!-- 自定义Logo -->
+              <img src="<%= theme.logo_path %>" 
+                   alt="<%= theme.site_title %>" 
+                   class="h-6 w-6 sm:h-8 sm:w-8 object-contain flex-shrink-0">
+            <% } else { %>
+              <!-- 默认SVG Logo -->
+              <svg class="h-6 w-6 sm:h-8 sm:w-8 text-[var(--primary-color)] flex-shrink-0" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                <path clip-rule="evenodd" d="M24 4H6V17.3333V30.6667H24V44H42V30.6667V17.3333H24V4Z" fill="currentColor" fill-rule="evenodd"></path>
+              </svg>
+            <% } %>
           <% } %>
-        <% } %>
-        <h1 class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold tracking-tight truncate"><%= theme.site_title || config.title %></h1>
+          <h1 class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold tracking-tight truncate"><%= theme.site_title || config.title %></h1>
+        </a>
       </div>
       
       <!-- Navigation -->
@@ -25,14 +27,30 @@
         <div class="hidden md:flex items-center gap-2">
           <% for (const [name, url] of Object.entries(theme.menu || {})) { %>
             <% const isActive = (url === '/' && is_home()) || (url !== '/' && is_current(url)); %>
-            <a class="px-4 py-2 text-base font-medium rounded-md <%= isActive ? 'bg-[var(--secondary-color)] text-[var(--text-primary-color)]' : 'text-[var(--text-secondary-color)] hover:bg-[var(--secondary-color)] hover:text-[var(--text-primary-color)]' %> transition-colors" 
-               href="<%= url_for(url) %>"><%= name %></a>
+            <a class="px-4 py-2 text-base font-medium rounded-md <%= isActive ? 'bg-[var(--secondary-color)] text-[var(--text-primary-color)] underline decoration-[var(--primary-color)] decoration-2 underline-offset-4' : 'text-[var(--text-secondary-color)] hover:bg-[var(--secondary-color)] hover:text-[var(--text-primary-color)] hover:underline hover:decoration-[var(--primary-color)] hover:decoration-2 hover:underline-offset-4' %> transition-all duration-200 relative group" 
+               href="<%= url_for(url) %>">
+              <%= name %>
+            </a>
           <% } %>
+          
+          <!-- Desktop Search Button -->
+          <button id="search-toggle" class="px-4 py-2 text-base font-medium rounded-md text-[var(--text-secondary-color)] hover:bg-[var(--secondary-color)] hover:text-[var(--text-primary-color)] hover:underline hover:decoration-[var(--primary-color)] hover:decoration-2 hover:underline-offset-4 transition-all duration-200 flex items-center gap-2 border-0 bg-transparent relative group" title="搜索 (Ctrl+K)">
+            <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+            <span class="hidden xl:inline">搜索</span>
+          </button>
+          
+          <!-- Desktop Theme Switch Button -->
+          <button id="desktop-theme-switcher" class="px-4 py-2 text-base font-medium rounded-md text-[var(--text-secondary-color)] hover:bg-[var(--secondary-color)] hover:text-[var(--text-primary-color)] hover:underline hover:decoration-[var(--primary-color)] hover:decoration-2 hover:underline-offset-4 transition-all duration-200 flex items-center gap-2 border-0 bg-transparent relative group" title="切换主题">
+            <span id="desktop-theme-icon" class="text-base flex-shrink-0">🌓</span>
+            <span class="hidden xl:inline" id="desktop-theme-text">主题</span>
+          </button>
         </div>
         
         <!-- Mobile Menu Button -->
         <div class="md:hidden flex-shrink-0">
-          <button id="mobile-menu-button" class="p-3 rounded-md text-[var(--text-secondary-color)] hover:text-[var(--text-primary-color)] hover:bg-[var(--secondary-color)] transition-colors touch-manipulation">
+          <button id="mobile-menu-button" class="px-4 py-2 text-base font-medium rounded-md text-[var(--text-secondary-color)] hover:bg-[var(--secondary-color)] hover:text-[var(--text-primary-color)] hover:underline hover:decoration-[var(--primary-color)] hover:decoration-2 hover:underline-offset-4 transition-all duration-200 border-0 bg-transparent relative group" title="菜单">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
             </svg>
@@ -41,13 +59,61 @@
       </div>
       
       <!-- Mobile Navigation Menu -->
-      <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 right-0 bg-[var(--background-color)] border-t border-[var(--border-color)] shadow-lg">
-        <div class="px-4 py-2 space-y-1">
+      <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 right-0 bg-white dark:bg-gray-800 border-t border-[var(--border-color)] shadow-2xl rounded-b-2xl z-40">
+        <div class="px-4 py-6 space-y-3">
           <% for (const [name, url] of Object.entries(theme.menu || {})) { %>
             <% const isActive = (url === '/' && is_home()) || (url !== '/' && is_current(url)); %>
-            <a class="block px-4 py-3 text-base font-medium rounded-md <%= isActive ? 'bg-[var(--secondary-color)] text-[var(--text-primary-color)]' : 'text-[var(--text-secondary-color)] hover:bg-[var(--secondary-color)] hover:text-[var(--text-primary-color)]' %> transition-colors" 
-               href="<%= url_for(url) %>"><%= name %></a>
+            <a class="block px-5 py-4 text-base font-medium rounded-2xl <%= isActive ? 'bg-gradient-to-r from-[var(--primary-color)] to-blue-600 text-white border-l-4 border-white shadow-lg' : 'text-gray-700 dark:text-gray-200 hover:bg-gradient-to-r hover:from-blue-50 hover:to-blue-100 dark:hover:from-gray-700 dark:hover:to-gray-600 hover:text-[var(--primary-color)] dark:hover:text-white hover:border-l-4 hover:border-[var(--primary-color)] hover:shadow-md' %> transition-all duration-300 relative group border-l-4 <%= isActive ? 'border-white' : 'border-transparent' %> transform hover:scale-105 active:scale-95" 
+               href="<%= url_for(url) %>">
+              <div class="flex items-center justify-between">
+                <span><%= name %></span>
+                <% if (isActive) { %>
+                  <svg class="w-4 h-4 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4"></path>
+                  </svg>
+                <% } else { %>
+                  <svg class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
+                <% } %>
+              </div>
+              <% if (!isActive) { %>
+                <span class="absolute bottom-2 left-5 right-5 h-0.5 bg-[var(--primary-color)] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+              <% } %>
+            </a>
           <% } %>
+          
+          <!-- 移动端搜索选项 -->
+          <button id="mobile-search-toggle" class="block w-full px-5 py-4 text-base font-medium rounded-2xl text-gray-700 dark:text-gray-200 hover:bg-gradient-to-r hover:from-blue-50 hover:to-blue-100 dark:hover:from-gray-700 dark:hover:to-gray-600 hover:text-[var(--primary-color)] dark:hover:text-white hover:border-l-4 hover:border-[var(--primary-color)] hover:shadow-md transition-all duration-300 text-left relative group border-l-4 border-transparent transform hover:scale-105 active:scale-95">
+            <div class="flex items-center justify-between">
+              <span class="flex items-center gap-3">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+                <span>搜索</span>
+              </span>
+              <svg class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </div>
+            <span class="absolute bottom-2 left-5 right-5 h-0.5 bg-[var(--primary-color)] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+          </button>
+          
+          <!-- 移动端主题切换选项 -->
+          <div class="border-t border-gray-200 dark:border-gray-600 pt-4 mt-4">
+            <button id="mobile-theme-switcher" class="block w-full px-5 py-4 text-base font-medium rounded-2xl text-gray-700 dark:text-gray-200 hover:bg-gradient-to-r hover:from-blue-50 hover:to-blue-100 dark:hover:from-gray-700 dark:hover:to-gray-600 hover:text-[var(--primary-color)] dark:hover:text-white hover:border-l-4 hover:border-[var(--primary-color)] hover:shadow-md transition-all duration-300 text-left relative group border-l-4 border-transparent transform hover:scale-105 active:scale-95">
+              <div class="flex items-center justify-between">
+                <span class="flex items-center gap-3">
+                  <span id="mobile-theme-icon" class="flex-shrink-0 text-lg">🌓</span>
+                  <span id="mobile-theme-text">主题：跟随系统</span>
+                </span>
+                <svg class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+              </div>
+              <span class="absolute bottom-2 left-5 right-5 h-0.5 bg-[var(--primary-color)] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+            </button>
+          </div>
         </div>
       </div>
     </div>

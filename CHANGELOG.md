@@ -5,6 +5,56 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2025-08-23
+
+### 🎨 Enhanced User Experience & Navigation
+
+This release focuses on improving user experience with better navigation, visual consistency, and interactive features.
+
+### ✨ Added
+- **Fixed Header Navigation**: Header now stays fixed during scrolling for better accessibility
+- **Title Click-to-Home**: Logo and title area now links to homepage with hover effects
+- **Enhanced Mobile Menu**: Unified styling with desktop buttons, improved readability
+- **Text Underline Effects**: All navigation links now feature smooth underline animations
+- **Scroll-Enhanced Header**: Dynamic background opacity and shadow effects based on scroll position
+- **Fixed Header Script**: JavaScript enhancement for scroll-based visual feedback
+
+### 🔧 Improved
+- **Navigation Consistency**: All buttons (desktop and mobile) now share unified styling
+- **Mobile Menu Background**: Changed from transparent to solid background for better text readability
+- **Button Styling**: Simplified mobile menu button to match desktop aesthetic
+- **Visual Feedback**: Enhanced hover effects with smooth 200ms transitions
+- **Accessibility**: Added proper focus states and semantic markup for screen readers
+
+### 🎯 User Experience Enhancements
+- **Immersive Design**: Mobile menu button now uses consistent minimalist styling
+- **Better Readability**: Mobile menu background ensures text is readable in all themes
+- **Smooth Animations**: All interactive elements feature polished transition effects
+- **Responsive Design**: Header adapts properly across all device sizes with appropriate padding
+
+### 📱 Mobile Improvements
+- **Unified Button Design**: Mobile menu button style now matches desktop navigation
+- **Enhanced Menu Visibility**: Solid background ensures content readability
+- **Touch-Friendly Navigation**: Improved button sizes and click areas
+- **Consistent Interactions**: Same hover and focus effects across desktop and mobile
+
+### 🎨 Visual Refinements
+- **Header Transparency**: Dynamic background blur with scroll-based opacity changes
+- **Underline Animations**: Smooth scale transitions for all navigation links
+- **Theme Integration**: Enhanced dark/light mode support for fixed header
+- **Typography Polish**: Better text hierarchy and spacing throughout navigation
+
+### 🛠️ Technical Improvements
+- **Fixed Positioning**: Header uses `position: fixed` for consistent visibility
+- **JavaScript Enhancement**: Added scroll listener for dynamic visual effects
+- **CSS Optimization**: Streamlined styles with better organization
+- **Performance**: Optimized animations with `will-change` and passive event listeners
+
+### 📚 Documentation Updates
+- **Navigation Guidelines**: Updated specifications for consistent button styling
+- **Fixed Header Guide**: Documentation for header positioning and scroll effects
+- **Mobile UX Standards**: Guidelines for mobile menu design and functionality
+
 ## [2.0.0] - 2025-07-27
 
 ### 🎉 Major Release - Production Ready
@@ -96,5 +146,6 @@ This is a complete overhaul of the theme with significant improvements in functi
 - Helper functions and generators
 - Tailwind CSS integration
 
+[2.1.0]: https://github.com/forhalunhaku/hexo-theme-halunhaku/releases/tag/v2.1.0
 [2.0.0]: https://github.com/forhalunhaku/hexo-theme-halunhaku/releases/tag/v2.0.0
 [1.0.0]: https://github.com/forhalunhaku/hexo-theme-halunhaku/releases/tag/v1.0.0

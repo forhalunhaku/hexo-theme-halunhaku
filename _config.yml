@@ -4,6 +4,7 @@
 site_title: "Halunhaku"
 site_subtitle: "Modern design meets elegant simplicity"
 site_logo: true
+favicon: /images/favicon32.png
 
 # Theme settings
 theme_style: "light" # light, dark, auto
